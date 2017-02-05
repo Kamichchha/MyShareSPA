@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  .row.page-header
+    .col-xs-12
+      h1 Infosys Technologies - Add Review
+  .row
+    .col-xs-12
+      form.form-horizontal(action="/stock",method="get",role="form")
+        .form-group
+          label.col-xs-10.col-sm-2.control-label(for="name") Name
+          .col-xs-12.col-sm-10
+            input#name.form-control(name="name")
+        .form-group
+          label.col-xs-10.col-sm-2.control-label(for="review") Review
+          .col-xs-12.col-sm-10
+            textarea#review.form-control(name="review",rows="6")
+        .form-group
+          .col-xs-12
+            button.btn.btn-default.btn-success.pull-right Add Review
