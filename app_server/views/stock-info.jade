@@ -3,7 +3,7 @@ extends layout
 block content
   .row.page-header
     .col-xs-12
-      h1 Infosys Technologies, Ltd.
+      h1=name
   .row
     .col-xs-12.col-md-8
       .row
@@ -12,19 +12,19 @@ block content
             .panel-heading
               h3.panel-title Stock Information
             .panel-body
-              p Last Traded Price : 952
-              p 52-Week High: 1300
-              p 52-Week Low: 900
-              p Volume: 4454534
+              p Last Traded Price : #{LTP}
+              p 52-Week High: #{WkHigh52}
+              p 52-Week Low: #{WkLow52}
+              p Volume: #{Volume}
       .row
         .col-xs-12
           .panel.panel-primary
             .panel-heading
               h3.panel-title Stock Categorization
             .panel-body
-              span.label.label-warning Large-cap 
-              | &nbsp;
-              span.label.label-warning IT sector    
+              each category in categories
+                span.label.label-warning #{category} 
+                | &nbsp;  
     .col-xs-12.col-md-4
       p Image section
   .row
@@ -34,20 +34,14 @@ block content
           h3.panel-title Stock reviews
           a#reviewBtn.btn.btn-default.pull-right(href="/stock/addReview") Add Review
         .panel-body.review-container
-          .row
-            .review
-              .well.well-sm.review-header
-                span.reviewAuthor Kamichchha singh
-                span.reviewTimestamp 16 December, 2016
-              .col-xs-12
-                p Buy this stock.
-          .row  
-            .review
-              .well.well-sm.review-header
-                span.reviewAuthor Kamichchha singh
-                span.reviewTimestamp 29 December, 2016
-              .col-xs-12
-                p This stock will reach 1060 in short term.
+          each review in reviews
+            .row
+              .review
+                .well.well-sm.review-header
+                  span.reviewAuthor #{review.author}
+                  span.reviewTimestamp #{review.timestamp}
+                .col-xs-12
+                  p !{(review.comment).replace('/\n/g','<br/>')}
 
  
 

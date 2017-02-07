@@ -3,7 +3,7 @@ extends layout
 block content
   .row.page-header
     .col-xs-12
-      h3 About page
+      h3=title
   .row
     .col-xs-12
-      p This is About page.
+      p !{data.replace('/\n/g','<br/>')}

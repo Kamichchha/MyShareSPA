@@ -4,8 +4,8 @@ block content
   #banner.page-header
     .row
         .col-lg-8
-            h1 MyShare
-                small &nbsp; Ideas that can change your fortunes.
+            h1=pageHeader.title
+                small &nbsp; #{pageHeader.strapLine}
   .row
     .col-xs-12.col-sm-8
         .row.list-group
@@ -20,25 +20,29 @@ block content
                 .col-xs-2
                   p 52wk Low
                 .col-xs-2
-                  p Volume     
-        .row.list-group
-            .col-xs-12
-              .row
-                .col-xs-4
-                  a(href="/stock") Infosys Technologies
-                .col-xs-2
-                  p 952
-                .col-xs-2
-                  p 1500
-                .col-xs-2
-                  p 900
-                .col-xs-2
-                  p 1254646 
-              .row
-                .col-xs-4
-                .col-xs-4
-                  button.btn-default.btn-success Add to WatchList  
-                .col-xs-4
-                  button.btn-default.btn-primary Add to Portfolio        
+                  p Volume    
+        each stock in stocks 
+          .row.list-group
+              .col-xs-12
+                .row
+                  .col-xs-4
+                    a(href="/stock")=stock.name
+                  .col-xs-2
+                    p=stock.LTP
+                  .col-xs-2
+                    p=stock.WkHigh52
+                  .col-xs-2
+                    p #{stock.WkLow52}
+                  .col-xs-2
+                    p #{stock.Volume} 
+                .row
+                  .col-xs-6
+                    each category in stock.categories
+                      span.label.label-warning=category    
+                      | &nbsp;
+                  .col-xs-3
+                    button.btn-default.btn-success.pull-right Add to WatchList
+                  .col-xs-3                   
+                    button.btn-default.btn-primary.pull-right Add to Portfolio                                           
     .col-xs-12.col-sm-4
         p Ads Section
