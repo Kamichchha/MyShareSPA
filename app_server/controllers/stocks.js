@@ -1,88 +1,117 @@
-module.exports.stocks= function(req, res, next) {
-  res.render('stocks-list', stockListModel);
+var request=require("request");
+
+var apiOptions={
+  server:"http://127.0.0.1:3000"
 };
 
-module.exports.stock= function(req, res, next) {
-  res.render('stock-info', stockInfoModel);
+if(process.env.NODE_ENV==='production'){
+  apiOptions.server="https://my-share.herokuapp.com";
+}
+
+module.exports.stockList= function(req, res, next) {
+  var requestOptions={
+    url:apiOptions.server+"/api/stocks",
+    method:"GET",
+    json:{}
+  };
+  request(requestOptions,function(err,response,body){
+    renderStockList(req,res,body);
+  });  
+};
+
+module.exports.stockDetail= function(req, res, next) {
+ getLocationInfo(req,res,renderStockDetail); 
 };
 
 module.exports.addReview= function(req, res, next) {
-  res.render('stock-review', addReviewModel);
+  getLocationInfo(req,res,renderReviewPage);
 };
 
-var stockListModel={
-  title:'MyShare',
-  pageHeader:{
+module.exports.doAddReview=function(req,res,next){
+  var data={
+    author:req.body.name,
+    comment:req.body.review
+  };
+  
+  var requestOptions={
+    url:apiOptions.server+"/api/stock/"+req.params.stockId+"/comment",
+    method:"POST",
+    json:data
+  };
+
+  if(!(data.author)||!(data.comment)){
+    res.redirect(apiOptions.server+"/stock/"+req.params.stockId+"/addReview/?error=val")
+  }
+  else {
+    request(requestOptions,function(err,response,body){
+      if(response.statusCode===200){
+        res.redirect(apiOptions.server+"/stock/"+req.params.stockId);
+      }
+      else if(response.statusCode===400 && body.name && body.name==="ValidationError"){
+        res.redirect(apiOptions.server+"/stock/"+req.params.stockId+"/addReview/?error=val")
+      }
+      else {
+        _showError(req,res,response.statusCode);
+      }
+    });
+  }
+};
+
+var renderStockDetail=function(req,res,body){
+  res.render('stock-info', body);
+};
+
+var renderStockList=function(req,res,body){
+  var errorMessage;
+  if(!(body instanceof Array)){
+    errorMessage="Error receiving data from API";
+    body=[];
+  }
+  else if(!(body.length)){
+    errorMessage="No stocks found";
+  }
+
+  res.render('stocks-list', {
     title:'MyShare',
-    strapLine:' - Ideas that can change your life.'
-  },
-  stocks:[
-    {
-      name:"Infosys Technologies",
-      WkHigh52:"1150",
-      WkLow52:"900",
-      LTP:932,
-      Volume:235235,
-      categories:['Information Tech.','Large Cap']
+    pageHeader:{
+      title:'MyShare',
+      strapLine:' - Ideas that can change your life.'
     },
-    {
-      name:"MOIL",
-      WkHigh52:"432",
-      WkLow52:"275",
-      LTP:357,
-      Volume:14551,
-      categories:['Metal','Large Cap']
-    },
-    {
-      name:"PNB Gilts",
-      WkHigh52:"60",
-      WkLow52:"23",
-      LTP:59.5,
-      Volume:154515,
-      categories:['Banking','Small Cap']
-    },
-    {
-      name:"BSE",
-      WkHigh52:"1200",
-      WkLow52:"1070",
-      LTP:1088,
-      Volume:15418841,
-      categories:['Exchange','Large Cap']
-    },
-    {
-      name:"Divis Labs",
-      WkHigh52:"1310",
-      WkLow52:"656",
-      LTP:758,
-      Volume:54154454,
-      categories:['Pharma','Large Cap']
+    stocks:body,
+    error:errorMessage
+  });
+};
+
+var renderReviewPage=function(req,res,body){
+  console.log(req.query.error);
+  res.render('stock-review', {
+    title:body.stockName,
+    error:req.query.error
+  });
+}
+
+var getLocationInfo=function(req,res,callback){
+  var requestOptions={
+    url:apiOptions.server+"/api/stock/"+req.params.stockId,
+    method:"GET",
+    json:{}
+  };
+  request.get(requestOptions,function(err,response,body){
+    if(response.statusCode===200){
+      callback(req,res,body);
     }
-  ]
-
-};
-
-var stockInfoModel={  
-      name:"Infosys Technologies",
-      WkHigh52:"1150",
-      WkLow52:"900",
-      LTP:932,
-      Volume:235235,
-      categories:['Information Tech.','Large Cap'],
-      reviews:[{
-        author:'Kamichchha singh',
-        timestamp:'16-Aug-2016',
-        comment:'Good stock to buy at this level.'
-      },{
-        author:'Kamichchha singh',
-        timestamp:'31-Dec-2016',
-        comment:'Buy at low levels.'
-      },{
-        author:'Kamichchha singh',
-        timestamp:'16-Jan-2017',
-        comment:'The stock will reach 1070.'
-      }]  
-};
-
-var addReviewModel={
-  title:'Add Review Page'
-};
+    else _showError(req,res,response.statusCode);
+  });
+}
+var _showError=function(req,res,status){
+  var data={};
+  if(status===404){
+    data.title=status+' , Page not found';
+    data.message="This page doesn't exists."
+  }
+  else{
+    data.title=status+' , Something went wrong';
+    data.message="Something went wrong."
+  }
+  res.render('generic-text',data);
+}

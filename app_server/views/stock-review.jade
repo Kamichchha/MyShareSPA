@@ -6,7 +6,11 @@ block content
       h1=title
   .row
     .col-xs-12
-      form.form-horizontal(action="/stock",method="get",role="form")
+      -if(error=='val')
+        .alert.alert-danger(role="alert") All fields required, please try again.
+  .row
+    .col-xs-12
+      form.form-horizontal#addReview(action="",method="post",role="form")
         .form-group
           label.col-xs-10.col-sm-2.control-label(for="name") Name
           .col-xs-12.col-sm-10

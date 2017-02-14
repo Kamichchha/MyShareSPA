@@ -4,7 +4,7 @@ if(process.env.NODE_ENV==='production'){
     uri=process.env.MONGOLAB_URI;
 }
 else{
-    uri='mongodb://localhost/MyShare';
+    uri='mongodb://127.0.0.1/stockDB';
 }
 
 

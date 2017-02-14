@@ -8,6 +8,9 @@ block content
                 small &nbsp; #{pageHeader.strapLine}
   .row
     .col-xs-12.col-sm-8
+        .row
+          .col-xs-12
+          p=error
         .row.list-group
             .col-xs-12
               h4.row
@@ -26,19 +29,19 @@ block content
               .col-xs-12
                 .row
                   .col-xs-4
-                    a(href="/stock")=stock.name
+                    a(href="/stock/"+stock._id)=stock.stockName
                   .col-xs-2
-                    p=stock.LTP
+                    p=stock.currPrice
                   .col-xs-2
-                    p=stock.WkHigh52
+                    p=stock.wkHigh52
                   .col-xs-2
-                    p #{stock.WkLow52}
+                    p #{stock.wkLow52}
                   .col-xs-2
-                    p #{stock.Volume} 
+                    p #{stock.volume} 
                 .row
                   .col-xs-6
-                    each category in stock.categories
-                      span.label.label-warning=category    
+                     each item in stock.category
+                      span.label.label-warning=item   
                       | &nbsp;
                   .col-xs-3
                     button.btn-default.btn-success.pull-right Add to WatchList

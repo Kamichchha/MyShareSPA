@@ -1,9 +1,11 @@
 extends layout
 
+include _includes/sharedHTMLFunctions
+
 block content
   .row.page-header
     .col-xs-12
-      h1=name
+      h1=stockName
   .row
     .col-xs-12.col-md-8
       .row
@@ -12,18 +14,18 @@ block content
             .panel-heading
               h3.panel-title Stock Information
             .panel-body
-              p Last Traded Price : #{LTP}
-              p 52-Week High: #{WkHigh52}
-              p 52-Week Low: #{WkLow52}
-              p Volume: #{Volume}
+              p Last Traded Price : #{currPrice}
+              p 52-Week High: #{wkHigh52}
+              p 52-Week Low: #{wkLow52}
+              p Volume: #{volume}
       .row
         .col-xs-12
           .panel.panel-primary
             .panel-heading
               h3.panel-title Stock Categorization
             .panel-body
-              each category in categories
-                span.label.label-warning #{category} 
+              each item in category
+                span.label.label-warning #{item} 
                 | &nbsp;  
     .col-xs-12.col-md-4
       p Image section
@@ -32,14 +34,15 @@ block content
       .panel.panel-primary.review-panel
         .panel-heading
           h3.panel-title Stock reviews
-          a#reviewBtn.btn.btn-default.pull-right(href="/stock/addReview") Add Review
+          a#reviewBtn.btn.btn-default.pull-right(href="/stock/#{_id}/addReview") Add Review
         .panel-body.review-container
           each review in reviews
             .row
               .review
                 .well.well-sm.review-header
                   span.reviewAuthor #{review.author}
-                  span.reviewTimestamp #{review.timestamp}
+                  span.reviewTimestamp
+                    +formatDate(review.createdOn)
                 .col-xs-12
                   p !{(review.comment).replace('/\n/g','<br/>')}
 

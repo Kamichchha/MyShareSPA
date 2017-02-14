@@ -4,9 +4,10 @@ var stockCtrl=require('../controllers/stocks');
 var otherCtrl=require('../controllers/others');
 
 /* GET home page. */
-router.get('/', stockCtrl.stocks);
-router.get('/stock', stockCtrl.stock);
-router.get('/stock/addReview', stockCtrl.addReview);
+router.get('/', stockCtrl.stockList);
+router.get('/stock/:stockId', stockCtrl.stockDetail);
+router.get('/stock/:stockId/addReview', stockCtrl.addReview);
+router.post('/stock/:stockId/addReview', stockCtrl.doAddReview);
 
 router.get('/about', otherCtrl.about);
 

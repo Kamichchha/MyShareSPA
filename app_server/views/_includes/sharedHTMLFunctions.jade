@@ -1,0 +1,5 @@
+mixin formatDate(currDate)
+    -var date=new Date(currDate);
+    -var months=["January","February","March","April","May","June","July","August","September","October","November","December"];
+    -var outputDate=date.getDate() +' '+months[date.getMonth()]+', '+date.getFullYear();
+    =outputDate
