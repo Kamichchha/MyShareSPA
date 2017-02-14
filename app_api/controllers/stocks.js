@@ -19,8 +19,8 @@ module.exports.addStock=function(req,res,next){
         wkHigh52:req.body.wkHigh52,
         wkLow52:req.body.wkLow52,
         volume:req.body.volume,
-        category:req.body.categories.split(','),
-        reviews:[{author:req.body.author1,comment:req.body.comment1}]
+        category:[req.body.category],
+        reviews:[]
     };
 
     StockModel.create(stock,function(err,stock){

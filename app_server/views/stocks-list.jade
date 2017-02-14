@@ -11,6 +11,10 @@ block content
         .row
           .col-xs-12
           p=error
+        .row
+          .col-xs-6
+            a.btn(href='/addNewStock').btn-default.btn-primary Add New Stock
+          .col-xs-6
         .row.list-group
             .col-xs-12
               h4.row
@@ -43,9 +47,6 @@ block content
                      each item in stock.category
                       span.label.label-warning=item   
                       | &nbsp;
-                  .col-xs-3
-                    button.btn-default.btn-success.pull-right Add to WatchList
-                  .col-xs-3                   
-                    button.btn-default.btn-primary.pull-right Add to Portfolio                                           
+                  .col-xs-6                                                               
     .col-xs-12.col-sm-4
         p Ads Section

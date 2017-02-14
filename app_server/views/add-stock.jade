@@ -1,0 +1,41 @@
+extends layout
+
+block content
+  #banner.page-header
+    .row
+        .col-xs-8
+            h3=title
+    .row
+        .col-xs-12
+        -if(error=='val')
+            .alert.alert-danger(role="alert") All fields required, please try again.
+    .row
+        .col-xs-12
+        form.form-horizontal#addStock(action="",method="post",role="form")
+            .form-group
+            label.col-xs-10.col-sm-2.control-label(for="name") Stock Name
+            .col-xs-12.col-sm-4
+                input#name.form-control(name="name")
+            .form-group
+            label.col-xs-10.col-sm-2.control-label(for="code") Stock Code
+            .col-xs-12.col-sm-4
+                input#code.form-control(name="code")
+            .form-group
+            label.col-xs-10.col-sm-2.control-label(for="volume") Volume
+            .col-xs-12.col-sm-4
+                input#volume.form-control(name="volume")
+            .form-group
+            label.col-xs-10.col-sm-2.control-label(for="currPrice") Last Price
+            .col-xs-12.col-sm-4
+                input#currPrice.form-control(name="currPrice")
+            .form-group
+            label.col-xs-10.col-sm-2.control-label(for="wkHigh52") 52-Week High
+            .col-xs-12.col-sm-4
+                input#wkHigh52.form-control(name="wkHigh52")
+            .form-group
+            label.col-xs-10.col-sm-2.control-label(for="wkLow52") 52-Week Low
+            .col-xs-12.col-sm-4
+                input#wkLow52.form-control(name="wkLow52")            
+            .form-group
+            .col-xs-12
+                button.btn.btn-default.btn-success.pull-right Add Stock

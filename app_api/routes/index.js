@@ -4,7 +4,7 @@ var stockCtrl=require('../controllers/stocks');
 var commentCtrl=require('../controllers/comments');
 
 /* GET home page. */
-router.get('/stocks', stockCtrl.stockList);
+router.get('/stock', stockCtrl.stockList);
 router.post('/stock', stockCtrl.addStock);
 router.get('/stock/:stockId', stockCtrl.readStockOne);
 router.put('/stock/:stockId', stockCtrl.updateStockOne);

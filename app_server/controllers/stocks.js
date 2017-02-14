@@ -10,13 +10,56 @@ if(process.env.NODE_ENV==='production'){
 
 module.exports.stockList= function(req, res, next) {
   var requestOptions={
-    url:apiOptions.server+"/api/stocks",
+    url:apiOptions.server+"/api/stock",
     method:"GET",
     json:{}
   };
   request(requestOptions,function(err,response,body){
     renderStockList(req,res,body);
   });  
+};
+
+module.exports.addStock=function(req,res,next){
+  res.render('add-stock',{
+     title:"Add New Stock",
+     error:req.query.error
+   }); 
+};
+
+module.exports.doAddStock=function(req,res,next){
+  var data={
+    stockName:req.body.name,
+    stockCode:req.body.code,
+    volume:req.body.volume,
+    currPrice:req.body.currPrice,
+    wkHigh52:req.body.wkHigh52,
+    wkLow52:req.body.wkLow52,
+    category:req.body.category
+  };
+  
+  var requestOptions={
+    url:apiOptions.server+"/api/stock",
+    method:"POST",
+    json:data
+  };
+
+  if(!(data.stockName)||!(data.stockCode)){
+    res.redirect(apiOptions.server+"/addStock/?error=val")
+  }
+  else {
+    request(requestOptions,function(err,response,body){
+      if(response.statusCode===201){
+        res.redirect(apiOptions.server);
+      }
+      else if(response.statusCode===400 && body.name && body.name==="ValidationError"){
+        res.redirect(apiOptions.server+"/addStock/?error=val")
+      }
+      else {
+        console.log(response);
+        _showError(req,res,response.statusCode);
+      }
+    });
+  }
 };
 
 module.exports.stockDetail= function(req, res, next) {

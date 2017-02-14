@@ -5,6 +5,8 @@ var otherCtrl=require('../controllers/others');
 
 /* GET home page. */
 router.get('/', stockCtrl.stockList);
+router.get('/addNewStock', stockCtrl.addStock);
+router.post('/addNewStock', stockCtrl.doAddStock);
 router.get('/stock/:stockId', stockCtrl.stockDetail);
 router.get('/stock/:stockId/addReview', stockCtrl.addReview);
 router.post('/stock/:stockId/addReview', stockCtrl.doAddReview);
