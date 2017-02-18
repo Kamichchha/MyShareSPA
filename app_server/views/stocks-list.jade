@@ -7,7 +7,7 @@ block content
             h1=pageHeader.title
                 small &nbsp; #{pageHeader.strapLine}
   .row
-    .col-xs-12.col-sm-8
+    .col-xs-12
         .row
           .col-xs-12
           p=error
@@ -23,11 +23,11 @@ block content
                 .col-xs-2
                   p Last Price
                 .col-xs-2
-                  p 52wk High
-                .col-xs-2
-                  p 52wk Low
+                  p 52wk High/Low                
                 .col-xs-2
                   p Volume    
+                .col-xs-1
+                .col-xs-1
         each stock in stocks 
           .row.list-group
               .col-xs-12
@@ -37,16 +37,18 @@ block content
                   .col-xs-2
                     p=stock.currPrice
                   .col-xs-2
-                    p=stock.wkHigh52
+                    p #{stock.wkHigh52}/#{stock.wkLow52}
                   .col-xs-2
-                    p #{stock.wkLow52}
-                  .col-xs-2
-                    p #{stock.volume} 
+                    p #{stock.volume}
+                  .col-xs-1
+                    a(href="/updateStock/"+stock._id).btn.btn-primary Update 
+                  .col-xs-1
+                    a(href="/deleteStock/"+stock._id).btn.btn-success Delete 
                 .row
                   .col-xs-6
                      each item in stock.category
                       span.label.label-warning=item   
                       | &nbsp;
                   .col-xs-6                                                               
-    .col-xs-12.col-sm-4
+    .col-xs-12
         p Ads Section

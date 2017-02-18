@@ -19,10 +19,10 @@ module.exports.addStock=function(req,res,next){
         wkHigh52:req.body.wkHigh52,
         wkLow52:req.body.wkLow52,
         volume:req.body.volume,
-        category:[req.body.category],
+        category:req.body.category,
         reviews:[]
     };
-
+    
     StockModel.create(stock,function(err,stock){
         if(err){
             sendResponse(res,404,err);
@@ -44,6 +44,7 @@ module.exports.readStockOne=function(req,res,next){
                 sendResponse(res,404,err);
                 return;
             }
+            console.log(stock.category);
             sendResponse(res,200,stock);
             return;
         });
@@ -54,6 +55,7 @@ module.exports.readStockOne=function(req,res,next){
 };
 
 module.exports.updateStockOne=function(req,res,next){
+    console.log("update");
     if(req.params && req.params.stockId){
         StockModel.findById(req.params.stockId).select("-reviews").exec(function(err,stock){
             if (!(stock)){
@@ -70,8 +72,8 @@ module.exports.updateStockOne=function(req,res,next){
             stock.wkHigh52=req.body.wkHigh52;
             stock.wkLow52=req.body.wkLow52;
             stock.volume=req.body.volume;
-            stock.category=req.body.categories.split(',');
-
+            stock.category=req.body.category;
+            
             stock.save(function(err,stock){
                 if(err){
                     sendResponse(res,404,err);

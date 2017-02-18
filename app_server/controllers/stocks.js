@@ -34,9 +34,12 @@ module.exports.doAddStock=function(req,res,next){
     currPrice:req.body.currPrice,
     wkHigh52:req.body.wkHigh52,
     wkLow52:req.body.wkLow52,
-    category:req.body.category
+    category:[]
   };
-  
+
+  data.category.push(req.body.industry);
+  data.category.push(req.body.sector);
+
   var requestOptions={
     url:apiOptions.server+"/api/stock",
     method:"POST",
@@ -44,7 +47,7 @@ module.exports.doAddStock=function(req,res,next){
   };
 
   if(!(data.stockName)||!(data.stockCode)){
-    res.redirect(apiOptions.server+"/addStock/?error=val")
+    res.redirect(apiOptions.server+"/addNewStock/?error=val")
   }
   else {
     request(requestOptions,function(err,response,body){
@@ -52,7 +55,7 @@ module.exports.doAddStock=function(req,res,next){
         res.redirect(apiOptions.server);
       }
       else if(response.statusCode===400 && body.name && body.name==="ValidationError"){
-        res.redirect(apiOptions.server+"/addStock/?error=val")
+        res.redirect(apiOptions.server+"/addNewStock/?error=val")
       }
       else {
         console.log(response);
@@ -100,8 +103,88 @@ module.exports.doAddReview=function(req,res,next){
   }
 };
 
+module.exports.stockUpdate=function(req,res,next){
+  getLocationInfo(req,res,renderStockUpdateForm); 
+};
+
+module.exports.deleteStock=function(req,res,next){
+  var requestOptions={
+    url:apiOptions.server+"/api/stock/"+req.params.stockId,
+    method:"DELETE",
+    json:{}
+  };
+
+  request(requestOptions,function(err,response,body){
+      if(response.statusCode===204){
+        res.redirect(apiOptions.server);
+      }
+      else {
+        console.log(response);
+        _showError(req,res,response.statusCode);
+      }
+    });
+
+}
+module.exports.doStockUpdate=function(req,res,next){
+  var data={
+    _id:req.body._id,
+    stockName:req.body.stockName,
+    stockCode:req.body.stockCode,
+    volume:req.body.volume,
+    currPrice:req.body.currPrice,
+    wkHigh52:req.body.wkHigh52,
+    wkLow52:req.body.wkLow52,
+    category:[]
+  };
+  console.log(req.body);
+  data.category.push(req.body.industry);
+  data.category.push(req.body.sector);
+  console.log(data);
+  
+  var requestOptions={
+    url:apiOptions.server+"/api/stock/"+req.params.stockId,
+    method:"PUT",
+    json:data
+  };
+
+  if(!(data.stockName)||!(data.stockCode)){
+    res.redirect(apiOptions.server+"/updateStock/"+req.params.stockId+"?error=val");
+  }
+  else {
+    request(requestOptions,function(err,response,body){
+      if(response.statusCode===200){
+        res.redirect(apiOptions.server);
+      }
+      else if(response.statusCode===400 && body.name && body.name==="ValidationError"){
+        res.redirect(apiOptions.server+"/updateStock/"+req.params.stockId+"?error=val")
+      }
+      else {
+        console.log(response);
+        _showError(req,res,response.statusCode);
+      }
+    });
+  }
+};
+
 var renderStockDetail=function(req,res,body){
   res.render('stock-info', body);
+};
+
+var renderStockUpdateForm=function(req,res,body){
+  var data={
+    _id:body._id,
+    stockName:body.stockName,
+    stockCode:body.stockCode,
+    volume:body.volume,
+    currPrice:body.currPrice,
+    wkHigh52:body.wkHigh52,
+    wkLow52:body.wkLow52    ,
+    industry:body.category[0],
+    sector:body.category[1]
+  };
+
+console.log(data);
+  res.render('stock-info-update', data); 
 };
 
 var renderStockList=function(req,res,body){
