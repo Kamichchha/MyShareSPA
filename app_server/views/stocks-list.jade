@@ -3,18 +3,26 @@ extends layout
 block content
   #banner.page-header
     .row
-        .col-lg-8
+        .col-sm-12
             h1=pageHeader.title
-                small &nbsp; #{pageHeader.strapLine}
-  .row
+                small &nbsp; #{pageHeader.strapLine}        
+  .row(ng-controller="stockListCtrl")
     .col-xs-12
         .row
-          .col-xs-12
-          p=error
+          .col-xs-8
+            p=error
+          .col-xs-4
+            p.pull-right {{locMessage}}
         .row
-          .col-xs-6
+          .col-xs-8
             a.btn(href='/addNewStock').btn-default.btn-primary Add New Stock
-          .col-xs-6
+          .col-xs-2
+            label(name="filter") Filter Results: 
+          .col-xs-2
+            input#filter(ng-model="filterText")
+        .row
+          .col-xs-12
+            .error {{message}}
         .row.list-group
             .col-xs-12
               h4.row
@@ -28,27 +36,26 @@ block content
                   p Volume    
                 .col-xs-1
                 .col-xs-1
-        each stock in stocks 
-          .row.list-group
-              .col-xs-12
-                .row
-                  .col-xs-4
-                    a(href="/stock/"+stock._id)=stock.stockName
-                  .col-xs-2
-                    p=stock.currPrice
-                  .col-xs-2
-                    p #{stock.wkHigh52}/#{stock.wkLow52}
-                  .col-xs-2
-                    p #{stock.volume}
-                  .col-xs-1
-                    a(href="/updateStock/"+stock._id).btn.btn-primary Update 
-                  .col-xs-1
-                    a(href="/deleteStock/"+stock._id).btn.btn-success Delete 
-                .row
-                  .col-xs-6
-                     each item in stock.category
-                      span.label.label-warning=item   
-                      | &nbsp;
-                  .col-xs-6                                                               
+        .row.list-group(ng-repeat="stock in stockList|filter:filterText")
+            .col-xs-12
+              .row
+                .col-xs-4
+                  a(href="/stock/{{stock._id}}") {{stock.stockName|uppercase}}
+                .col-xs-2
+                  p {{stock.currPrice}}
+                .col-xs-2
+                  p {{stock.wkHigh52}}/{{stock.wkLow52}}
+                .col-xs-2
+                  p {{stock.volume|formatVolume}}
+                .col-xs-1
+                  a(href="/updateStock/{{stock._id}}").btn.btn-primary Update 
+                .col-xs-1
+                  a(href="/deleteStock/{{stock._id}}").btn.btn-success Delete 
+              .row
+                .col-xs-6
+                  span(ng-repeat="item in stock.category")
+                    .label.label-warning {{item}}   
+                    | &nbsp;
+                .col-xs-6                                                               
     .col-xs-12
         p Ads Section

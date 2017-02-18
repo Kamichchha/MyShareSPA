@@ -14,9 +14,10 @@ module.exports.stockList= function(req, res, next) {
     method:"GET",
     json:{}
   };
-  request(requestOptions,function(err,response,body){
+  renderStockList(req,res,null);
+  /*request(requestOptions,function(err,response,body){
     renderStockList(req,res,body);
-  });  
+  });*/
 };
 
 module.exports.addStock=function(req,res,next){
@@ -189,21 +190,21 @@ console.log(data);
 
 var renderStockList=function(req,res,body){
   var errorMessage;
-  if(!(body instanceof Array)){
+  /*if(!(body instanceof Array)){
     errorMessage="Error receiving data from API";
     body=[];
   }
   else if(!(body.length)){
     errorMessage="No stocks found";
   }
-
+  */
   res.render('stocks-list', {
     title:'MyShare',
     pageHeader:{
       title:'MyShare',
       strapLine:' - Ideas that can change your life.'
     },
-    stocks:body,
+    //stocks:body,
     error:errorMessage
   });
 };
