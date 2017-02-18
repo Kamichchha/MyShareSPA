@@ -12,7 +12,7 @@ var stockListCtrl=function($scope,stockService,getLocationService){
 
     $scope.loadLocation=function(position){
         $scope.$apply(function(){
-             $scope.locMessage="You'r at : " + position.coords.lat +" ," +position.coords.lng;             
+             $scope.locMessage="You'r at : " + position.coords.latitude +" ," +position.coords.longitude;             
         });
     }
     $scope.errorLocation=function(error){
