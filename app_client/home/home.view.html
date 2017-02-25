@@ -1,0 +1,69 @@
+<navigation></navigation>
+<div class="container">
+    <page-header content="stockListVM.pageHeader"></page-header>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-8">
+                    <p></p>
+                </div>
+                <div class="col-xs-4">
+                    <p class="pull-right">{{stockListVM.locMessage}}</p>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-xs-8">
+                <a ng-click="stockListVM.addStockForm()" class="btn btn-default btn-primary">Add New Stock</a>
+            </div>
+            <div class="col-xs-2">
+                <label name="filter">Filter Results: </label>
+            </div>
+            <div class="col-xs-2">
+                <input id="filter" ng-model="filterText">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="error">{{stockListVM.message}}</div>
+            </div>
+        </div>
+        <div class="row list-group">
+            <div class="col-xs-12">
+                <h4 class="row">
+                    <div class="col-xs-4"><p>Stock Name</p></div>
+                    <div class="col-xs-2"><p>Last Price</p></div>
+                    <div class="col-xs-2"><p>52wk High/Low</p></div>
+                    <div class="col-xs-2"><p>Volume</p></div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1"></div>
+                </h4>
+            </div>
+        </div>
+        <div ng-repeat="stock in stockListVM.stockList|filter:filterText" class="row list-group">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <a href="/stock/{{stock._id}}">{{stock.stockName|uppercase}}</a>
+                    </div>
+                    <div class="col-xs-2"><p>{{stock.currPrice}}</p></div>
+                    <div class="col-xs-2"><p>{{stock.wkHigh52}}/{{stock.wkLow52}}</p></div>
+                    <div class="col-xs-2"><p>{{stock.volume|formatVolume}}</p></div>
+                    <div class="col-xs-1"><a id="{{stock._id}}" ng-click="stockListVM.updateStockForm(this.stock._id)" class="btn btn-primary">Update </a></div>
+                    <div class="col-xs-1"><a ng-click="stockListVM.deleteStock(this.stock._id)" class="btn btn-success">Delete </a></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <span ng-repeat="item in stock.category">
+                            <div class="label label-warning">{{item}}   </div>&nbsp;
+                        </span>
+                    </div>
+                <div class="col-xs-6"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <p>Ads Section</p>
+    </div>
+    <footer-generic></footer-generic>
+</div>

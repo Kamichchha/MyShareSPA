@@ -19,13 +19,13 @@ html
             li
               a(href="/about/") About
     .container
-      block content
-      footer
-        .row
-          .col-xs-12
-            small &copy; Kamichchha singh, 2017
+      div(ng-view)
+        block content
+        footer
+          .row
+            .col-xs-12
+              small &copy; Kamichchha singh, 2017
     script(src='/javascripts/angular.min.js')
-    script(src='/javascripts/myShareApp.js')
-    script(src='/javascripts/jquery-2.2.0.min.js')
-    script(src='/Bootstrap/js/bootstrap.js')
-    script(src='/javascripts/validation.js')
+    script(src='/lib/angular-route.min.js')
+    script(src='javascripts/myShareApp.min.js')
+    

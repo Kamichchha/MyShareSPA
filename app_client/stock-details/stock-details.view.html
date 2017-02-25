@@ -1,0 +1,65 @@
+<navigation></navigation>
+<div class="container">
+    <div class="col-xs-12">
+        <h1>{{vm.stock.stockName}}</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-md-8">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Stock Information</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>Last Traded Price : {{vm.stock.currPrice}}</p>
+                            <p>52-Week High: {{vm.stock.wkHigh52}}</p>
+                            <p>52-Week Low: {{vm.stock.wkLow52}}</p>
+                            <p>Volume: {{vm.stock.volume}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Stock Categorization</h3>
+                    </div>
+                    <div class="panel-body">
+                        <span class="label label-warning" ng-repeat="item in vm.stock.category">{{item}} </span>&nbsp;
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-4">
+            <p>Image section</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-primary review-panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Stock reviews</h3>
+                    <a id="reviewBtn" ng-click="vm.popUpReviewForm()" class="btn btn-default pull-right">Add Review</a>
+                </div>
+                <div class="panel-body review-container">
+                    <div class="row" ng-repeat="review in vm.stock.reviews|orderBy:'createdOn':true">
+                        <div class="review">
+                            <div class="well well-sm review-header">
+                                <span class="reviewAuthor">{{review.author}}</span>
+                                <span class="reviewTimestamp">{{review.createdOn|date:'d MM yyyy'}}</span>
+                            </div>
+                            <div class="col-xs-12">
+                                <p>{{review.comment}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer-generic></footer-generic>
+    </div>
+</div>

@@ -4,7 +4,9 @@ var stockCtrl=require('../controllers/stocks');
 var otherCtrl=require('../controllers/others');
 
 /* GET home page. */
-router.get('/', stockCtrl.stockList);
+//router.get('/', stockCtrl.stockList);
+router.get('/', otherCtrl.angularHome);
+
 router.get('/addNewStock', stockCtrl.addStock);
 router.post('/addNewStock', stockCtrl.doAddStock);
 
