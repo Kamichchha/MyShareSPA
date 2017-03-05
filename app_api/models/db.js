@@ -4,7 +4,7 @@ if(process.env.NODE_ENV==='production'){
     uri=process.env.MONGOLAB_URI;
 }
 else{
-    uri='mongodb://127.0.0.1/stockDB';
+    uri=process.env.LOCAL_DB_URI;
 }
 
 
@@ -48,3 +48,4 @@ process.on('SIGTERM', function() {
 });
 
 require('./stockModel');
+require('./userModel');

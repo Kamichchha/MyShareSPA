@@ -59,7 +59,6 @@ module.exports.doAddStock=function(req,res,next){
         res.redirect(apiOptions.server+"/addNewStock/?error=val")
       }
       else {
-        console.log(response);
         _showError(req,res,response.statusCode);
       }
     });
@@ -120,7 +119,6 @@ module.exports.deleteStock=function(req,res,next){
         res.redirect(apiOptions.server);
       }
       else {
-        console.log(response);
         _showError(req,res,response.statusCode);
       }
     });
@@ -137,10 +135,8 @@ module.exports.doStockUpdate=function(req,res,next){
     wkLow52:req.body.wkLow52,
     category:[]
   };
-  console.log(req.body);
   data.category.push(req.body.industry);
   data.category.push(req.body.sector);
-  console.log(data);
   
   var requestOptions={
     url:apiOptions.server+"/api/stock/"+req.params.stockId,
@@ -160,7 +156,6 @@ module.exports.doStockUpdate=function(req,res,next){
         res.redirect(apiOptions.server+"/updateStock/"+req.params.stockId+"?error=val")
       }
       else {
-        console.log(response);
         _showError(req,res,response.statusCode);
       }
     });
@@ -184,8 +179,7 @@ var renderStockUpdateForm=function(req,res,body){
     sector:body.category[1]
   };
 
-console.log(data);
-  res.render('stock-info-update', data); 
+ res.render('stock-info-update', data); 
 };
 
 var renderStockList=function(req,res,body){
@@ -210,7 +204,6 @@ var renderStockList=function(req,res,body){
 };
 
 var renderReviewPage=function(req,res,body){
-  console.log(req.query.error);
   res.render('stock-review', {
     title:body.stockName,
     error:req.query.error

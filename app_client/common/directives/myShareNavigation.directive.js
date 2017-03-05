@@ -2,7 +2,8 @@
     var navigation=function(){
         return {
             restrict:'EA',
-            templateUrl:'/common/directives/myShareNavigation.html'
+            templateUrl:'/common/directives/myShareNavigation.html',
+            controller:'navigationCtrl as navvm'
         };
     };
 

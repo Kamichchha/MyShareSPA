@@ -1,12 +1,19 @@
 (function(){
  
- stockDetailsCtrl.$inject=["stockService","$uibModal","$routeParams"];
-function stockDetailsCtrl(stockService,$uibModal,$routeParams){
+ stockDetailsCtrl.$inject=["stockService","$uibModal","$routeParams","authentication"];
+function stockDetailsCtrl(stockService,$uibModal,$routeParams,authentication){
     vm=this;
     vm.stockId=$routeParams.stockId;
 
+    vm.pageHeader={
+        title:'Stock details: '
+    };
+
+     vm.isLoggedIn=authentication.isLoggedIn();
+
     stockService.getStockById(vm.stockId).success(function(data){
         vm.stock=data;
+        vm.pageHeader.strapLine=stock.stockName;
     })
     .error(function(e){
         console.log(e);

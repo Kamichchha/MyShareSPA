@@ -1,29 +1,29 @@
 (function(){
-    stockService.$inject=["$http"];
-    function stockService($http){
+    stockService.$inject=["$http","authentication"];
+    function stockService($http,authentication){
 
         var getData=function(){
-             return $http.get('/api/stock');
+             return $http.get('/api/stock',{headers:{Authorization:'Bearer '+authentication.getToken()}});
         };
 
         var getStockById=function(stockId){
-            return $http.get('/api/stock/'+stockId);
+            return $http.get('/api/stock/'+stockId,{headers:{Authorization:'Bearer '+authentication.getToken()}});
         };
 
         var addReviewById=function(stockId,data){
-            return $http.post('/api/stock/'+stockId+'/comment',data);
+            return $http.post('/api/stock/'+stockId+'/comment',data,{headers:{Authorization:'Bearer '+authentication.getToken()}});
         };
 
         var addStock=function(data){
-            return $http.post('/api/stock',data);
+            return $http.post('/api/stock',data,{headers:{Authorization:'Bearer '+authentication.getToken()}});
         }
 
         var updateStock=function(stockId,data){
-            return $http.put('/api/stock/'+stockId,data);
+            return $http.put('/api/stock/'+stockId,data,{headers:{Authorization:'Bearer '+authentication.getToken()}});
         }
 
         var deleteStock=function(stockId){
-            return $http.delete('/api/stock/'+stockId);
+            return $http.delete('/api/stock/'+stockId,{headers:{Authorization:'Bearer '+authentication.getToken()}});
         }
 
         return {

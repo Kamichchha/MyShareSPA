@@ -17,6 +17,16 @@ var configFunction=function($routeProvider,$locationProvider){
                     controller:'aboutCtrl',
                     controllerAs:'vm'
     })
+    .when('/register',{
+                    templateUrl:'common/auth/register.view.html',
+                    controller:'registerCtrl',
+                    controllerAs:'vm'
+    })
+    .when('/login',{
+                    templateUrl:'common/auth/login.view.html',
+                    controller:'loginCtrl',
+                    controllerAs:'vm'
+    })
                     .otherwise({redirectTo:'/'});
     $locationProvider.html5Mode(true);
 };

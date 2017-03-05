@@ -10,7 +10,16 @@
         </div>
         <div id="navbar-main" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/about/#">About</a></li>
+                <li><a href="/about/">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-hide="navvm.isLoggedIn"><a href="/login/?path={{navvm.currentPath}}">Sign In</a></li>   
+                <li ng-show="navvm.isLoggedIn" class="dropdown">
+                    <a href="" >{{navvm.currentUser.name}}</a>
+                </li>
+                <li ng-show="navvm.isLoggedIn">
+                    <a href="" ng-click="navvm.logOut()">Logout</a>
+                </li>             
             </ul>
         </div>
     </div>

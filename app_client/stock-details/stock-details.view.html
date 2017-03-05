@@ -1,9 +1,7 @@
 <navigation></navigation>
 <div class="container">
-    <div class="col-xs-12">
-        <h1>{{vm.stock.stockName}}</h1>
-    </div>
-
+    <page-header content="vm.pageHeader"></page-header>
+    
     <div class="row">
         <div class="col-xs-12 col-md-8">
             <div class="row">
@@ -43,7 +41,8 @@
             <div class="panel panel-primary review-panel">
                 <div class="panel-heading">
                     <h3 class="panel-title">Stock reviews</h3>
-                    <a id="reviewBtn" ng-click="vm.popUpReviewForm()" class="btn btn-default pull-right">Add Review</a>
+                    <a ng-show="vm.isLoggedIn" id="reviewBtn" ng-click="vm.popUpReviewForm()" class="btn btn-default pull-right">Add Review</a>
+                    <a ng-hide="vm.isLoggedIn" id="reviewBtn" href="/login/?page=/stockDetails/{{vm.stock.stockId}}" class="btn btn-default pull-right">Log in to Add Review</a>
                 </div>
                 <div class="panel-body review-container">
                     <div class="row" ng-repeat="review in vm.stock.reviews|orderBy:'createdOn':true">
