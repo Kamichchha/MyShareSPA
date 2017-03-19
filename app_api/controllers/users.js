@@ -11,15 +11,20 @@ module.exports.register=function(req,res,next){
     }
     var user=new UserModel();
     user.email=req.body.email;
-    user.name=req.body.name,
-   // user.isAdmin=true;
+    user.name=req.body.name;
+    // user.isAdmin=true;
     
     
     user.setPassword(req.body.password);
     
     user.save(user,function(err,user){
+        var message=err.message;
         if(err){
-             sendResponse(res,400,{"message":"Error saving user, try again."});
+            if(err.name==='ValidationError'){
+                    message="Email should be in correct format";
+             }
+                //else vm.error=err.message.message;
+             sendResponse(res,400,{"message":message});
         }
         else{
             var token=user.generateJwt();

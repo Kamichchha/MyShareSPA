@@ -17,6 +17,7 @@
 
         var register=function(user){
             return $http.post('/api/register',user).success(function(data){
+                
                 saveToken(data.token);
             });
         };
@@ -36,7 +37,7 @@
 
         var currentUser=function(){
             if(isLoggedIn()){
-                var token=getToken();                
+                var token=this.getToken();                
                 var payload=JSON.parse($window.atob(token.split('.')[1]));
                 return {
                     name:payload.name,
@@ -46,18 +47,19 @@
             
         };
 
-        return{
+        return {
             getToken:getToken,
             saveToken:saveToken,
             login:login,
-            register:register,
             logout:logout,
+            currentUser:currentUser,
             isLoggedIn:isLoggedIn,
-            currentUser:currentUser
+            register:register
         };
+
     }
 
     angular.module("myShareApp")
-            .service("authentication",authentication);
+            .factory("authentication",authentication);
 
 })();

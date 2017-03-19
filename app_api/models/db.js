@@ -49,3 +49,4 @@ process.on('SIGTERM', function() {
 
 require('./stockModel');
 require('./userModel');
+require('./feedbackModel');

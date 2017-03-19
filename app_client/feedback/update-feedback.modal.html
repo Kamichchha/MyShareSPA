@@ -1,0 +1,52 @@
+<div class="modal-content">
+<form id="updateFeedBack" name="updateFeedBack" ng-submit="vm.updateItem()" role="form" class="form-horizontal" novalidate>
+        <div id="banner" class="modal-header">
+            <div class="row">
+                <div class="col-xs-8">
+                    <h3>Update FeedBack</h3>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div role="alert" ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
+                </div>
+            </div>
+           
+            <div class="form-group">
+                <label for="headline" class="col-xs-10 col-sm-2 control-label">HeadLine</label>
+                <div class="col-xs-12 col-sm-10">
+                    <input id="headline" name="headline" class="form-control" ng-model="vm.feedback.headline" ng-required="true">
+                    <span class="error-message" ng-show="updateFeedBack.headline.$dirty && updateFeedBack.headline.$error.required">HeadLine is required.</span>
+                </div>
+                
+                <div class="form-group"></div>
+                <label for="description" class="col-xs-10 col-sm-2 control-label">Description</label>
+                <div class="col-xs-12 col-sm-10">
+                    <textarea id="description" name="description" class="form-control" ng-model="vm.feedback.description"></textarea>
+                </div>   
+
+                <div class="form-group"></div>
+                <label for="status" class="col-xs-10 col-sm-2 control-label">Status</label>
+                <div class="col-xs-12 col-sm-10">
+                    <select name="status" ng-model="vm.feedback.status" class="form-control">
+                        <option value="">(None)</option>
+                        <option>Open</option>
+                        <option>Closed</option>                      
+                    </select>
+                </div>
+
+                <div class="form-group"></div>
+                <div class="col-xs-8"> </div>
+                <div class="col-xs-2">
+                    <button class="btn btn-default btn-success" ng-click="vm.onCancel()">Cancel</button>
+                </div>
+                <div class="col-xs-2">
+                    <button class="btn btn-default btn-success pull-right" ng-disabled="updateFeedBack.$invalid">Update Feedback</button>
+                </div>
+                
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,72 @@
+<div class="modal-content">
+<form id="addStock" name="addStock" ng-submit="vm.addStock()" role="form" class="form-horizontal" novalidate>
+        <div id="banner" class="modal-header">
+            <div class="row">
+                <div class="col-xs-8">
+                    <h3>Add New Stock</h3>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div role="alert" ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
+                </div>
+            </div>
+           
+            <div class="form-group"></div>
+            <label for="name" class="col-xs-10 col-sm-2 control-label">Stock Name</label>
+            <div class="col-xs-12 col-sm-4">
+                <input id="name" name="name" class="form-control" ng-model="vm.stockName" ng-required="true" ng-model-options="{updateOn:'blur',debounce:200}">
+                <span class="error-message" ng-show="addStock.name.$dirty && addStock.name.$error.required">Stock name is required.</span>
+            </div>
+            <label for="code" class="col-xs-10 col-sm-2 control-label">Stock Code</label>
+            <div class="col-xs-12 col-sm-4">
+                <input id="code" name="code" class="form-control" ng-model="vm.stockCode" ng-required="true">
+                <span class="error-message" ng-show="addStock.code.$dirty && addStock.code.$error.required">Stock code is required.</span>
+            </div>
+            <div class="form-group"></div>
+            <label for="volume" class="col-xs-10 col-sm-2 control-label">Volume</label>
+            <div class="col-xs-12 col-sm-4">
+                <input id="volume" name="volume" class="form-control" ng-model="vm.volume">
+            </div>
+            <label for="currPrice" class="col-xs-10 col-sm-2 control-label">Last Price</label>
+            <div class="col-xs-12 col-sm-4">
+                <input id="currPrice" name="currPrice" class="form-control" ng-model="vm.currPrice">
+            </div>
+            <div class="form-group">           </div>
+            <label for="wkHigh52" class="col-xs-10 col-sm-2 control-label">52-Week High</label>
+            <div class="col-xs-12 col-sm-4">
+                <input id="wkHigh52" name="wkHigh52" class="form-control" ng-model="vm.wk52High">
+            </div>
+            <label for="wkLow52" class="col-xs-10 col-sm-2 control-label">52-Week Low</label>
+            <div class="col-xs-12 col-sm-4">
+                <input id="wkLow52" name="wkLow52" class="form-control" ng-model="vm.wk52Low">
+            </div>
+            <div class="form-group"></div>
+            <label for="industry" class="col-xs-10 col-sm-2 control-label">Industry</label>
+            <div class="col-xs-12 col-sm-4">
+                <select name="industry" ng-model="vm.industry">
+                    <option value="">(None)</option>
+                    <option ng-repeat="item in vm.descriptions.industries">{{item}}</option> 
+                </select>
+            </div>
+            <label for="sector" class="col-xs-10 col-sm-2 control-label">Sector</label>
+            <div class="col-xs-12 col-sm-4">
+                <select name="sector" ng-model="vm.sector">
+                    <option value="">(None)</option>
+                    <option ng-repeat="item in vm.descriptions.sectors">{{item}}</option>                        
+                </select>
+            </div>
+            <div class="form-group"></div>
+            <div class="col-xs-8"> </div>
+            <div class="col-xs-2">
+                <button class="btn btn-default btn-success" ng-click="vm.onCancel()">Cancel</button>
+            </div>
+            <div class="col-xs-2">
+                <button class="btn btn-default btn-success pull-right" ng-disabled="addStock.$invalid">Add Stock</button>
+            </div>
+            <div class="form-group"></div>
+        </div>
+    </form>
+</div>

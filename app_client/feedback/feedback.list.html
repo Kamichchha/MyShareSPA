@@ -1,0 +1,45 @@
+<navigation></navigation>       
+<div class="container">
+
+<page-header content="feedbackListVM.pageHeader"></page-header>
+    <div class="row">
+        <div class="col-xs-12">           
+        <div class="row">
+            <div class="col-xs-8">
+                <a ng-click="feedbackListVM.addFeedBackForm()" class="btn btn-default btn-primary">Add New Feedback</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="error">{{feedbackListVM.message}}</div>
+            </div>
+        </div>
+        <div class="row list-group">
+            <div class="col-xs-12">
+                <h4 class="row">
+                    <div class="col-xs-8"><p>HeadLine</p></div>
+                    <div class="col-xs-2"><p>Status</p></div>  
+                    <div class="col-xs-1"></div>  
+                    <div class="col-xs-1"></div>                    
+                </h4>
+            </div>
+        </div>
+        <div ng-repeat="feedback in feedbackListVM.feedBackList" class="row list-group">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <p>{{feedback.headline}}</p>
+                    </div>                    
+                    <div class="col-xs-2"><p>{{feedback.status}}</p></div>
+                    <div class="col-xs-1"><a  id="{{feedback._id}}" ng-click="feedbackListVM.updateFeedBackForm(this.feedback._id)" class="btn btn-primary">Update </a></div>
+                    <div class="col-xs-1"><a ng-click="feedbackListVM.deleteFeedback(this.feedback._id)" class="btn btn-success">Delete </a></div>
+               
+                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <p>Ads Section</p>
+    </div>
+    <footer-generic></footer-generic>
+</div>

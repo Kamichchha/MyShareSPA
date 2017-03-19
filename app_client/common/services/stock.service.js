@@ -11,7 +11,7 @@
         };
 
         var addReviewById=function(stockId,data){
-            return $http.post('/api/stock/'+stockId+'/comment',data,{headers:{Authorization:'Bearer '+authentication.getToken()}});
+           return $http.post('/api/stock/'+stockId+'/comment',data,{headers:{Authorization:'Bearer '+authentication.getToken()}});
         };
 
         var addStock=function(data){

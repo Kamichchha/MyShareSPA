@@ -7,7 +7,7 @@
         navvm.currentPath=$location.path();
         navvm.isLoggedIn=authentication.isLoggedIn();
         navvm.currentUser=authentication.currentUser();
-
+       
        navvm.logOut=function(){
             authentication.logout();
             $location.path('/login');

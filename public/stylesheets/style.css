@@ -19,3 +19,11 @@ a {
   padding:6px 14px;
   height:34px;
 }
+
+.error-message{
+  color:red;
+}
+
+input.ng-dirty.ng-invalid{
+  border-color:red;
+}

@@ -1,11 +1,33 @@
 var mongoose=require('mongoose');
 var StockModel=mongoose.model('Stock');
+var UserModel=mongoose.model('User');
 
 //This file is to manage CRUD operations on stock reviews.
+var getAuth=function(req,res,callback){
+     if((req.payload)&&(req.payload.email)){
+        UserModel.findOne({email:req.payload.email},function(err,user){
+            if(err){
+                sendResponse(res,404,{"message":"User not found"});
+                return;
+            }
+
+            if(!(user)){
+                sendResponse(res,404,{"message":"User not found"});
+                return;
+            }
+
+            callback(req,res,user.name);
+
+        });
+    }
+    else{
+        sendResponse(res,404,{"message":"User not found"});
+    }
+};
 
 module.exports.addStockComment=function(req,res,next){
     getAuth(req,res,function(req,res,authName){
-        if(req.params && req.params.stockId){
+         if(req.params && req.params.stockId){
             StockModel.findById(req.params.stockId).select("reviews").exec(function(err,stock){
                 if (!(stock)){
                     sendResponse(res,404,{"message":"Stock not found"});
@@ -153,27 +175,7 @@ module.exports.deleteStockCommentOne=function(req,res,next){
     });
 };
 
-var getAuth=function(req,res,callback){
-    if((req.payload)&&(req.payload.email)){
-        UserModel.findOne({email:req.payload.email},function(err,user){
-            if(err){
-                sendResponse(res,404,{"message":"User not found"});
-                return;
-            }
 
-            if(!(user)){
-                sendResponse(res,404,{"message":"User not found"});
-                return;
-            }
-
-            callback(req,res,user.name);
-
-        });
-    }
-    else{
-        sendResponse(res,404,{"message":"User not found"});
-    }
-};
 
 
 var sendResponse=function(res,statusCode,data){

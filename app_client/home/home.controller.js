@@ -26,7 +26,7 @@ function stockListCtrl($scope,stockService,getLocationService,$uibModal,authenti
 
     stockListVM.addStockForm=function(){
         var modalInstance=$uibModal.open({
-            templateUrl:'stock-details/add-stock.modal.html',
+            templateUrl:'stock/add-stock.modal.html',
             controller:'addStockCtrl',
             controllerAs:'vm',
             size:'lg'
@@ -40,7 +40,7 @@ function stockListCtrl($scope,stockService,getLocationService,$uibModal,authenti
     stockListVM.updateStockForm=function(stockId){
         
         var modalInstance=$uibModal.open({
-            templateUrl:'stock-details/update-stock.modal.html',
+            templateUrl:'stock/update-stock.modal.html',
             controller:'updateStockCtrl',
             controllerAs:'vm',
             size:'lg',

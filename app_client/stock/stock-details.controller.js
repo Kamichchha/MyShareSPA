@@ -6,14 +6,14 @@ function stockDetailsCtrl(stockService,$uibModal,$routeParams,authentication){
     vm.stockId=$routeParams.stockId;
 
     vm.pageHeader={
-        title:'Stock details: '
+        title:''
     };
 
      vm.isLoggedIn=authentication.isLoggedIn();
 
     stockService.getStockById(vm.stockId).success(function(data){
         vm.stock=data;
-        vm.pageHeader.strapLine=stock.stockName;
+        vm.pageHeader.strapLine="Stock Details for " + vm.stock.stockName;
     })
     .error(function(e){
         console.log(e);

@@ -3,6 +3,8 @@ var router = express.Router();
 var stockCtrl=require('../controllers/stocks');
 var commentCtrl=require('../controllers/comments');
 var authUserCtrl=require('../controllers/users');
+var feedBackCtrl=require('../controllers/feedback');
+
 var jwt=require('express-jwt');
 
 var auth=jwt({
@@ -24,5 +26,12 @@ router.delete('/stock/:stockId/comment/:commentId',auth,  commentCtrl.deleteStoc
 
 router.post('/register', authUserCtrl.register);
 router.post('/login', authUserCtrl.authenticateUser);
+
+
+router.get('/feedback',feedBackCtrl.feedBackList);
+router.post('/feedback',  feedBackCtrl.addFeedBack);
+router.get('/feedback/:feedBackId', feedBackCtrl.readFeedBackOne);
+router.put('/feedback/:feedBackId',  feedBackCtrl.updateFeedBackOne);
+router.delete('/feedback/:feedBackId',  feedBackCtrl.deleteFeedBackOne);
 
 module.exports = router;

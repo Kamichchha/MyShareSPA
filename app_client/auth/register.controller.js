@@ -32,7 +32,7 @@
                 $location.path(vm.returnPage);
             })
             .error(function(err){
-                vm.error=err.message.message;
+                vm.error=err.message;                
             });
 
         };
